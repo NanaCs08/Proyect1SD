@@ -1,0 +1,9 @@
+{
+  "modelo": "Airbus A350",
+  "fabricante": "Airbus",
+  "tipo": "Comercial",
+  "capacidad": 440,
+  "velocidad_maxima": "945 km/h",
+  "año_lanzamiento": 2013,
+  "aerolineas_usuarias": ["Qatar Airways", "Cathay Pacific", "Lufthansa"]
+}

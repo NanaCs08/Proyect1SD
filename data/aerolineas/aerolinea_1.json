@@ -1,0 +1,7 @@
+{
+    "nombre": "American Airlines",
+    "pais_origen": "Estados Unidos",
+    "flota": 945,
+    "modelos_operados": ["Boeing 737", "Airbus A320", "Boeing 787 Dreamliner"]
+  }
+  

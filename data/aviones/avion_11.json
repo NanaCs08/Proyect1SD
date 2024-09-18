@@ -1,0 +1,9 @@
+{
+  "modelo": "Embraer E175",
+  "fabricante": "Embraer",
+  "tipo": "Comercial",
+  "capacidad": 78,
+  "velocidad_maxima": "876 km/h",
+  "año_lanzamiento": 2003,
+  "aerolineas_usuarias": ["American Eagle", "Alaska Airlines", "SkyWest Airlines"]
+}

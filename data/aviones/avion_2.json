@@ -1,0 +1,9 @@
+{
+  "modelo": "Boeing 747",
+  "fabricante": "Boeing",
+  "tipo": "Comercial",
+  "capacidad": 416,
+  "velocidad_maxima": "988 km/h",
+  "año_lanzamiento": 1969,
+  "aerolineas_usuarias": ["British Airways", "Lufthansa", "Air France"]
+}

@@ -1,0 +1,9 @@
+{
+  "modelo": "McDonnell Douglas MD-80",
+  "fabricante": "McDonnell Douglas",
+  "tipo": "Comercial",
+  "capacidad": 155,
+  "velocidad_maxima": "871 km/h",
+  "año_lanzamiento": 1980,
+  "aerolineas_usuarias": ["Delta Air Lines", "Alitalia", "Aeromexico"]
+}

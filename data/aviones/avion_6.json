@@ -1,0 +1,9 @@
+{
+  "modelo": "Boeing 737",
+  "fabricante": "Boeing",
+  "tipo": "Comercial",
+  "capacidad": 162,
+  "velocidad_maxima": "850 km/h",
+  "año_lanzamiento": 1968,
+  "aerolineas_usuarias": ["Southwest Airlines", "Ryanair", "United Airlines"]
+}

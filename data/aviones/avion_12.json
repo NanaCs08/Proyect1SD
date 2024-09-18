@@ -1,0 +1,9 @@
+{
+  "modelo": "Bombardier CRJ900",
+  "fabricante": "Bombardier",
+  "tipo": "Comercial",
+  "capacidad": 90,
+  "velocidad_maxima": "876 km/h",
+  "año_lanzamiento": 2001,
+  "aerolineas_usuarias": ["Delta Connection", "Lufthansa Regional", "SAS"]
+}

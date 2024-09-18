@@ -1,0 +1,9 @@
+{
+  "modelo": "Boeing 777",
+  "fabricante": "Boeing",
+  "tipo": "Comercial",
+  "capacidad": 396,
+  "velocidad_maxima": "950 km/h",
+  "año_lanzamiento": 1994,
+  "aerolineas_usuarias": ["Emirates", "Cathay Pacific", "ANA All Nippon Airways"]
+}

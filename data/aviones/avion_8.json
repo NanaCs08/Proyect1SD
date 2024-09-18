@@ -1,0 +1,9 @@
+{
+  "modelo": "Boeing 787 Dreamliner",
+  "fabricante": "Boeing",
+  "tipo": "Comercial",
+  "capacidad": 242,
+  "velocidad_maxima": "913 km/h",
+  "año_lanzamiento": 2009,
+  "aerolineas_usuarias": ["United Airlines", "American Airlines", "British Airways"]
+}

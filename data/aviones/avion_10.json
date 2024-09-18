@@ -1,0 +1,9 @@
+{
+  "modelo": "Airbus A330",
+  "fabricante": "Airbus",
+  "tipo": "Comercial",
+  "capacidad": 277,
+  "velocidad_maxima": "913 km/h",
+  "año_lanzamiento": 1994,
+  "aerolineas_usuarias": ["Turkish Airlines", "Delta Air Lines", "KLM"]
+}
