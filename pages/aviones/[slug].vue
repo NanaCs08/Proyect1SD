@@ -42,15 +42,7 @@ const fetchAvionData = async () => {
   const avionPromises = Object.values(modules).map((module) => module());
   const avionData = await Promise.all(avionPromises);
   const allAviones = avionData.map(data => data.default || data);
-  
-  // Debugging: Log the loaded data and the route params
-  console.log('Loaded aviones:', allAviones);
-  console.log('Route params:', route.params.slug);
-  
   avion.value = allAviones.find(a => generateSlug(a.modelo) === route.params.slug);
-  
-  // Debugging: Log the found avion
-  console.log('Found avion:', avion.value);
 };
 
 const fetchAerolineasData = async () => {
