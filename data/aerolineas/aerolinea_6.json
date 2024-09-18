@@ -2,6 +2,7 @@
     "nombre": "British Airways",
     "pais_origen": "Reino Unido",
     "flota": 277,
-    "modelos_operados": ["Boeing 747", "Airbus A320", "Boeing 787 Dreamliner"]
+    "modelos_operados": ["Boeing 747", "Airbus A320", "Boeing 787 Dreamliner"],
+    "imagen": "/Imagenes/aerolineas/aerolinea_6.png"
   }
   

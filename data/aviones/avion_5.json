@@ -5,5 +5,6 @@
   "capacidad": 100,
   "velocidad_maxima": "871 km/h",
   "año_lanzamiento": 2004,
-  "aerolineas_usuarias": ["JetBlue Airways", "KLM", "Azul Brazilian Airlines"]
+  "aerolineas_usuarias": ["JetBlue Airways", "KLM", "Azul Brazilian Airlines"],
+  "imagen": "/Imagenes/aviones/avion_5.jpg"
 }

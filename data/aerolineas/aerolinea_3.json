@@ -2,6 +2,7 @@
     "nombre": "Emirates",
     "pais_origen": "Emiratos Árabes Unidos",
     "flota": 260,
-    "modelos_operados": ["Airbus A380", "Boeing 777", "Boeing 787 Dreamliner"]
+    "modelos_operados": ["Airbus A380", "Boeing 777", "Boeing 787 Dreamliner"],
+    "imagen": "/Imagenes/aerolineas/aerolinea_3.PNG"
   }
   

@@ -5,5 +5,6 @@
   "capacidad": 150,
   "velocidad_maxima": "828 km/h",
   "año_lanzamiento": 1988,
-  "aerolineas_usuarias": ["American Airlines", "Delta Air Lines", "easyJet"]
+  "aerolineas_usuarias": ["American Airlines", "Delta Air Lines", "easyJet"],
+  "imagen": "/Imagenes/aviones/avion_4.jpg"
 }

@@ -2,6 +2,7 @@
     "nombre": "Lufthansa",
     "pais_origen": "Alemania",
     "flota": 266,
-    "modelos_operados": ["Boeing 747", "Airbus A320", "Airbus A380"]
+    "modelos_operados": ["Boeing 747", "Airbus A320", "Airbus A380"],
+    "imagen": "/Imagenes/aerolineas/aerolinea_2.png"
   }
   

@@ -2,6 +2,7 @@
     "nombre": "McDonnell Douglas",
     "pais_origen": "Estados Unidos",
     "año_fundacion": 1967,
-    "modelos_fabricados": ["McDonnell Douglas MD-80", "McDonnell Douglas DC-10", "McDonnell Douglas MD-11"]
+    "modelos_fabricados": ["McDonnell Douglas MD-80", "McDonnell Douglas DC-10", "McDonnell Douglas MD-11"],
+    "imagen": "/Imagenes/fabricantes/fabricante_2.jpg"
   }
   

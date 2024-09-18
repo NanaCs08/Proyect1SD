@@ -2,6 +2,7 @@
     "nombre": "Qatar Airways",
     "pais_origen": "Catar",
     "flota": 235,
-    "modelos_operados": ["Boeing 777", "Airbus A350", "Airbus A380"]
+    "modelos_operados": ["Boeing 777", "Airbus A350", "Airbus A380"],
+    "imagen": "/Imagenes/aerolineas/aerolinea_5.png"
   }
   
