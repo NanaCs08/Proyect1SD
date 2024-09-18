@@ -15,9 +15,10 @@
       <p>Año de Lanzamiento: {{ avion.año_lanzamiento }}</p>
       <p>Aerolíneas Usuarias: 
         <span v-for="(aerolinea, index) in avion.aerolineas_usuarias" :key="aerolinea">
-          <router-link :to="{ path: `/aerolineas/${generateSlug(aerolinea)}` }">
+          <router-link v-if="aerolineaExists(aerolinea)" :to="{ path: `/aerolineas/${generateSlug(aerolinea)}` }">
             {{ aerolinea }}
           </router-link>
+          <span v-else>{{ aerolinea }}</span>
           <span v-if="index < avion.aerolineas_usuarias.length - 1">, </span>
         </span>
       </p>
@@ -33,6 +34,7 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const avion = ref(null);
+const aerolineas = ref([]);
 const route = useRoute();
 
 const fetchAvionData = async () => {
@@ -51,6 +53,17 @@ const fetchAvionData = async () => {
   console.log('Found avion:', avion.value);
 };
 
+const fetchAerolineasData = async () => {
+  const modules = import.meta.glob('@/data/aerolineas/*.json');
+  const aerolineaPromises = Object.values(modules).map((module) => module());
+  const aerolineaData = await Promise.all(aerolineaPromises);
+  aerolineas.value = aerolineaData.map(data => data.default || data);
+};
+
+const aerolineaExists = (nombre) => {
+  return aerolineas.value.some(a => generateSlug(a.nombre) === generateSlug(nombre));
+};
+
 const generateSlug = (text) => {
   return text
     .toString()
@@ -64,6 +77,7 @@ const generateSlug = (text) => {
 
 onMounted(() => {
   fetchAvionData();
+  fetchAerolineasData();
 });
 </script>
 
