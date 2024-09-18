@@ -8,7 +8,9 @@
       <p><strong>Año de Fundación:</strong> {{ fabricante.año_fundacion }}</p>
       <p><strong>Modelos Fabricados:</strong></p>
       <ul>
-        <li v-for="modelo in fabricante.modelos_fabricados" :key="modelo">{{ modelo }}</li>
+        <li v-for="modelo in fabricante.modelos_fabricados" :key="modelo">
+          <router-link :to="{ path: `/aviones/${generateSlug(modelo)}` }">{{ modelo }}</router-link>
+        </li>
       </ul>
     </div>
     <Footer />

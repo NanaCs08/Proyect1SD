@@ -5,7 +5,7 @@
       <h1>Lista de Aerolíneas</h1>
       <ul>
         <li v-for="aerolinea in aerolineas" :key="aerolinea.nombre">
-          <nuxt-link :to="`/aerolineas/${aerolinea.nombre}`">{{ aerolinea.nombre }}</nuxt-link>
+          <nuxt-link :to="{ path: `/aerolineas/${generateSlug(aerolinea.nombre)}` }">{{ aerolinea.nombre }}</nuxt-link>
         </li>
       </ul>
     </div>
@@ -24,7 +24,18 @@ const importAerolíneas = async () => {
   const modules = import.meta.glob('@/data/aerolineas/*.json');
   const aerolineaPromises = Object.values(modules).map((module) => module());
   const aerolineaData = await Promise.all(aerolineaPromises);
-  aerolineas.value = aerolineaData.flat();
+  aerolineas.value = aerolineaData.map(data => data.default || data);
+};
+
+const generateSlug = (text) => {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-')           // Reemplaza espacios con -
+    .replace(/[^\w\-]+/g, '')       // Elimina caracteres no válidos
+    .replace(/\-\-+/g, '-')         // Reemplaza múltiples - con uno solo
+    .replace(/^-+/, '')             // Elimina - al inicio
+    .replace(/-+$/, '');            // Elimina - al final
 };
 
 onMounted(() => {

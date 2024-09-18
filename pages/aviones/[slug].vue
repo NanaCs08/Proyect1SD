@@ -4,12 +4,23 @@
     <div v-if="avion">
       <h1>{{ avion.modelo }}</h1>
       <img :src="avion.imagen" :alt="`Imagen de ${avion.modelo}`" />
-      <p>Fabricante: {{ avion.fabricante }}</p>
+      <p>Fabricante: 
+        <router-link :to="{ path: `/fabricantes/${generateSlug(avion.fabricante)}` }">
+          {{ avion.fabricante }}
+        </router-link>
+      </p>
       <p>Tipo: {{ avion.tipo }}</p>
       <p>Capacidad: {{ avion.capacidad }}</p>
       <p>Velocidad Máxima: {{ avion.velocidad_maxima }}</p>
       <p>Año de Lanzamiento: {{ avion.año_lanzamiento }}</p>
-      <p>Aerolíneas Usuarias: {{ avion.aerolineas_usuarias.join(', ') }}</p>
+      <p>Aerolíneas Usuarias: 
+        <span v-for="(aerolinea, index) in avion.aerolineas_usuarias" :key="aerolinea">
+          <router-link :to="{ path: `/aerolineas/${generateSlug(aerolinea)}` }">
+            {{ aerolinea }}
+          </router-link>
+          <span v-if="index < avion.aerolineas_usuarias.length - 1">, </span>
+        </span>
+      </p>
     </div>
     <Footer />
   </div>
