@@ -2,7 +2,7 @@
     "nombre": "Boeing",
     "pais_origen": "Estados Unidos",
     "año_fundacion": 1916,
-    "modelos_fabricados": ["Boeing 747", "Boeing 787 Dreamliner", "Boeing 767"],
+    "modelos_fabricados": ["Boeing 747", "Boeing 787 Dreamliner", "Boeing 777","Boeing 737"],
     "imagen": "/Imagenes/fabricantes/fabricante_4.jpg"
   }
   

@@ -5,7 +5,7 @@
       <h1>Lista de Fabricantes</h1>
       <ul>
         <li v-for="fabricante in fabricantes" :key="fabricante.nombre">
-          <nuxt-link :to="`/fabricantes/${fabricante.nombre}`">{{ fabricante.nombre }}</nuxt-link>
+          <nuxt-link :to="{ path: `/fabricantes/${generateSlug(fabricante.nombre)}` }">{{ fabricante.nombre }}</nuxt-link>
         </li>
       </ul>
     </div>
@@ -24,7 +24,18 @@ const importFabricantes = async () => {
   const modules = import.meta.glob('@/data/fabricantes/*.json');
   const fabricantePromises = Object.values(modules).map((module) => module());
   const fabricanteData = await Promise.all(fabricantePromises);
-  fabricantes.value = fabricanteData.flat();
+  fabricantes.value = fabricanteData.map(data => data.default || data);
+};
+
+const generateSlug = (text) => {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-')           // Reemplaza espacios con -
+    .replace(/[^\w\-]+/g, '')       // Elimina caracteres no válidos
+    .replace(/\-\-+/g, '-')         // Reemplaza múltiples - con uno solo
+    .replace(/^-+/, '')             // Elimina - al inicio
+    .replace(/-+$/, '');            // Elimina - al final
 };
 
 onMounted(() => {

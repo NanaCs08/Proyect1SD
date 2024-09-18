@@ -2,7 +2,7 @@
     "nombre": "Embraer",
     "pais_origen": "Brasil",
     "año_fundacion": 1969,
-    "modelos_fabricados": ["Embraer E190", "Embraer E175", "Embraer E195"],
+    "modelos_fabricados": ["Embraer E190", "Embraer E175"],
     "imagen": "/Imagenes/fabricantes/fabricante_3.jpg"
   }
   
