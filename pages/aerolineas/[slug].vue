@@ -1,17 +1,18 @@
 <template>
   <div>
     <Header />
-    <div v-if="aerolinea">
-      <h1>{{ aerolinea.nombre }}</h1>
-      <img :src="aerolinea.imagen" :alt="`Imagen de ${aerolinea.nombre}`" />
-      <p><strong>País de Origen:</strong> {{ aerolinea.pais_origen }}</p>
-      <p><strong>Flota:</strong> {{ aerolinea.flota }}</p>
+    <div v-if="airline">
+      <h1>{{ airline.nombre }}</h1>
+      <img :src="airline.imagen" :alt="`Imagen de ${airline.nombre}`" />
+      <p><strong>País de Origen:</strong> {{ airline.pais_origen }}</p>
+      <p><strong>Flota:</strong> {{ airline.flota }}</p>
       <p><strong>Modelos Operados:</strong></p>
       <ul>
-        <li v-for="modelo in aerolinea.modelos_operados" :key="modelo">
-          <router-link :to="{ path: `/aviones/${generateSlug(modelo)}` }">{{ modelo }}</router-link>
-        </li>
+        <li v-for="modelo in airline.modelos_operados" :key="modelo">{{ modelo }}</li>
       </ul>
+    </div>
+    <div v-else>
+      <p>Cargando...</p>
     </div>
     <Footer />
   </div>
@@ -23,15 +24,15 @@ import Footer from '@/components/footer.vue';
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
-const aerolinea = ref(null);
+const airline = ref(null);
 const route = useRoute();
 
-const fetchAerolineaData = async () => {
+const fetchAirlineData = async () => {
   const modules = import.meta.glob('@/data/aerolineas/*.json');
-  const aerolineaPromises = Object.values(modules).map((module) => module());
-  const aerolineaData = await Promise.all(aerolineaPromises);
-  const allAerolineas = aerolineaData.map(data => data.default || data);
-  aerolinea.value = allAerolineas.find(f => generateSlug(f.nombre) === route.params.slug);
+  const airlinePromises = Object.values(modules).map((module) => module());
+  const airlineData = await Promise.all(airlinePromises);
+  const allAirlines = airlineData.map(data => data.default || data);
+  airline.value = allAirlines.find(a => generateSlug(a.nombre) === route.params.slug);
 };
 
 const generateSlug = (text) => {
@@ -46,7 +47,7 @@ const generateSlug = (text) => {
 };
 
 onMounted(() => {
-  fetchAerolineaData();
+  fetchAirlineData();
 });
 </script>
 

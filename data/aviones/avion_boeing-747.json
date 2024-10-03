@@ -1,10 +1,14 @@
 {
   "modelo": "Boeing 747",
-  "fabricante": "Boeing",
+  "fabricante": "Boeing2",
   "tipo": "Comercial",
   "capacidad": 416,
   "velocidad_maxima": "988 km/h",
   "año_lanzamiento": 1969,
-  "aerolineas_usuarias": ["British Airways", "Lufthansa", "Air France"],
+  "aerolineas_usuarias": [
+    "British Airways",
+    "Lufthansa",
+    "Air France"
+  ],
   "imagen": "/Imagenes/aviones/avion_2.jpg"
 }

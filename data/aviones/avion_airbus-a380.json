@@ -1,10 +1,14 @@
 {
   "modelo": "Airbus A380",
-  "fabricante": "Airbus",
+  "fabricante": "Airbus Grande",
   "tipo": "Comercial",
   "capacidad": 555,
   "velocidad_maxima": "1020 km/h",
   "año_lanzamiento": 2005,
-  "aerolineas_usuarias": ["Emirates", "Qatar Airways", "Singapore Airlines"],
+  "aerolineas_usuarias": [
+    "Emirates",
+    "Qatar Airways",
+    "Singapore Airlines"
+  ],
   "imagen": "/Imagenes/aviones/avion_1.jpg"
 }

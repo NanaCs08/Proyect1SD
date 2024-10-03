@@ -1,8 +1,0 @@
-{
-    "nombre": "Airbus",
-    "pais_origen": "Francia",
-    "año_fundacion": 1970,
-    "modelos_fabricados": ["Airbus A320","Airbus A330", "Airbus A380", "Airbus A350"],
-    "imagen": "/Imagenes/fabricantes/fabricante_1.jpg"
-  }
-  
