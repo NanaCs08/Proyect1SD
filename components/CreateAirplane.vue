@@ -2,16 +2,18 @@
   <div class="create-airplane-form">
     <h2>{{ airplane ? 'Editar' : 'Agregar' }} Avión</h2>
     <form @submit.prevent="submit">
-      <input v-model="modelo" placeholder="Modelo" required />
-      <input v-model="fabricante" placeholder="Fabricante" required />
-      <input v-model="tipo" placeholder="Tipo (Comercial, Militar, etc.)" required />
-      <input v-model="capacidad" type="number" placeholder="Capacidad" required />
-      <input v-model="velocidad_maxima" placeholder="Velocidad Máxima (en km/h)" required />
-      <input v-model="año_lanzamiento" type="number" placeholder="Año de Lanzamiento" required />
-      <textarea v-model="aerolineas_usuarias" placeholder="Aerolíneas Usuarias (separadas por comas)" required></textarea>
-      <input v-model="imagen" placeholder="URL de la Imagen" required />
-      <button type="submit">{{ airplane ? 'Actualizar' : 'Crear' }} Avión</button>
-      <button type="button" @click="$emit('close')">Cancelar</button>
+      <input v-model="modelo" placeholder="Modelo" required class="form-input"/>
+      <input v-model="fabricante" placeholder="Fabricante" required class="form-input"/>
+      <input v-model="tipo" placeholder="Tipo (Comercial, Militar, etc.)" required class="form-input"/>
+      <input v-model="capacidad" type="number" placeholder="Capacidad" required class="form-input"/>
+      <input v-model="velocidad_maxima" placeholder="Velocidad Máxima (en km/h)" required class="form-input"/>
+      <input v-model="año_lanzamiento" type="number" placeholder="Año de Lanzamiento" required class="form-input"/>
+      <textarea v-model="aerolineas_usuarias" placeholder="Aerolíneas Usuarias (separadas por comas)" required class="form-textarea"></textarea>
+      <input v-model="imagen" placeholder="URL de la Imagen" required class="form-input"/>
+      <div class="button-group">
+        <button type="submit" class="submit-button">{{ airplane ? 'Actualizar' : 'Crear' }} Avión</button>
+        <button type="button" @click="$emit('close')" class="cancel-button">Cancelar</button>
+      </div>
     </form>
   </div>
 </template>
@@ -69,7 +71,6 @@ const submit = async () => {
   emit('created');
 };
 
-// Función para generar slug de forma segura
 const generateSlug = (text) => {
   if (!text || typeof text !== 'string') {
     return ''; // Devuelve un slug vacío si el texto no es válido
@@ -87,10 +88,69 @@ const generateSlug = (text) => {
 <style scoped>
 .create-airplane-form {
   margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9;
-  max-width: 400px;
+  font-size: 1rem;
+}
+
+.form-textarea {
+  height: 100px;
+}
+
+.form-input:focus, .form-textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-button, .cancel-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.cancel-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #c0392b;
 }
 </style>

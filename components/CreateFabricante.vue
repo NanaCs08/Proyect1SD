@@ -2,13 +2,15 @@
   <div class="create-fabricante-form">
     <h2>{{ fabricante ? 'Editar' : 'Agregar' }} Fabricante</h2>
     <form @submit.prevent="submit">
-      <input v-model="nombre" placeholder="Nombre del Fabricante" required />
-      <input v-model="pais_origen" placeholder="País de Origen" required />
-      <input v-model="año_fundacion" type="number" placeholder="Año de Fundación" required />
-      <textarea v-model="modelos_fabricados" placeholder="Modelos Fabricados (separados por comas)" required></textarea>
-      <input v-model="imagen" placeholder="URL de la Imagen" required />
-      <button type="submit">{{ fabricante ? 'Actualizar' : 'Crear' }} Fabricante</button>
-      <button type="button" @click="$emit('close')">Cancelar</button>
+      <input v-model="nombre" placeholder="Nombre del Fabricante" required class="form-input"/>
+      <input v-model="pais_origen" placeholder="País de Origen" required class="form-input"/>
+      <input v-model="año_fundacion" type="number" placeholder="Año de Fundación" required class="form-input"/>
+      <textarea v-model="modelos_fabricados" placeholder="Modelos Fabricados (separados por comas)" required class="form-textarea"></textarea>
+      <input v-model="imagen" placeholder="URL de la Imagen" required class="form-input"/>
+      <div class="button-group">
+        <button type="submit" class="submit-button">{{ fabricante ? 'Actualizar' : 'Crear' }} Fabricante</button>
+        <button type="button" @click="$emit('close')" class="cancel-button">Cancelar</button>
+      </div>
     </form>
   </div>
 </template>
@@ -18,7 +20,7 @@ import { ref } from 'vue';
 const emit = defineEmits(['created', 'close']);
 
 const props = defineProps({
-  fabricante: Object, // Si se edita, el fabricante será pasado como prop
+  fabricante: Object,
 });
 
 const nombre = ref(props.fabricante ? props.fabricante.nombre : '');
@@ -37,7 +39,6 @@ const submit = async () => {
   };
 
   if (props.fabricante) {
-    // Actualizar
     const editSlug = generateSlug(props.fabricante.nombre);
     await fetch(`/api/fabricantes?slug=${editSlug}`, {
       method: 'PUT',
@@ -47,7 +48,6 @@ const submit = async () => {
       body: JSON.stringify(newFabricante),
     });
   } else {
-    // Crear nuevo fabricante
     await fetch('/api/fabricantes', {
       method: 'POST',
       headers: {
@@ -60,28 +60,86 @@ const submit = async () => {
   emit('created');
 };
 
-// Función para generar slug de forma segura
 const generateSlug = (text) => {
   if (!text || typeof text !== 'string') {
-    return ''; // Devuelve un slug vacío si el texto no es válido
+    return ''; 
   }
   return text
     .toLowerCase()
-    .replace(/\s+/g, '-')           // Reemplazar espacios con guiones
-    .replace(/[^\w\-]+/g, '')       // Eliminar caracteres no válidos
-    .replace(/\-\-+/g, '-')         // Reemplazar múltiples guiones por uno solo
-    .replace(/^-+/, '')             // Eliminar guiones al inicio
-    .replace(/-+$/, '');            // Eliminar guiones al final
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
 };
 </script>
 
 <style scoped>
 .create-fabricante-form {
   margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9;
-  max-width: 400px;
+  font-size: 1rem;
+}
+
+.form-textarea {
+  height: 100px;
+}
+
+.form-input:focus, .form-textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-button, .cancel-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.cancel-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #c0392b;
 }
 </style>

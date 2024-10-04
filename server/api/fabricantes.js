@@ -92,10 +92,19 @@ export default defineEventHandler(async (event) => {
           res.statusCode = 400;
           return { error: 'Falta el slug para actualizar' };
         }
-        const updateFilePath = path.join(dataPath, `fabricante_${slug}.json`);
-        if (fs.existsSync(updateFilePath)) {
-          console.log(`Actualizando archivo: ${updateFilePath}`);
-          await fs.promises.writeFile(updateFilePath, JSON.stringify(updateData, null, 2));
+
+        const oldFilePath = path.join(dataPath, `fabricante_${slug}.json`);
+        const newSlug = generateSlug(updateData.nombre); // Generar nuevo slug basado en el nuevo nombre
+        const newFilePathForUpdate = path.join(dataPath, `fabricante_${newSlug}.json`);
+
+        if (fs.existsSync(oldFilePath)) {
+          // Renombrar el archivo si el slug cambia
+          if (slug !== newSlug) {
+            console.log(`Renombrando archivo de ${oldFilePath} a ${newFilePathForUpdate}`);
+            await fs.promises.rename(oldFilePath, newFilePathForUpdate);
+          }
+          // Actualizar el contenido del archivo con los nuevos datos
+          await fs.promises.writeFile(newFilePathForUpdate, JSON.stringify(updateData, null, 2));
           res.statusCode = 200;
           return updateData;
         } else {

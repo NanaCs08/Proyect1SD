@@ -1,17 +1,18 @@
 <template>
-  <div>
+  <div class="airlines-container">
     <Header />
     <h1>Lista de Aerolíneas</h1>
-    <ul>
-      <li v-for="airline in airlines" :key="airline.nombre">
-        <!-- Asegúrate de que airline.nombre no sea undefined antes de generar el slug -->
-        <nuxt-link v-if="airline.nombre" :to="{ path: `/aerolineas/${generateSlug(airline.nombre)}` }">
+    <div class="airlines-list">
+      <div v-for="airline in airlines" :key="airline.nombre" class="airline-card">
+        <nuxt-link v-if="airline.nombre" :to="{ path: `/aerolineas/${generateSlug(airline.nombre)}` }" class="airline-link">
           {{ airline.nombre }}
         </nuxt-link>
-        <button @click="editAirline(airline)">Editar</button>
-        <button @click="deleteAirline(generateSlug(airline.nombre))">Eliminar</button>
-      </li>
-    </ul>
+        <div class="action-buttons">
+          <button class="edit-button" @click="editAirline(airline)">Editar</button>
+          <button class="delete-button" @click="deleteAirline(generateSlug(airline.nombre))">Eliminar</button>
+        </div>
+      </div>
+    </div>
     <button @click="showCreateForm = true" class="add-airline-button">Agregar Aerolínea</button>
 
     <!-- Formularios para crear o editar aerolínea -->
@@ -55,7 +56,6 @@ const fetchAirlines = async () => {
     
     // Leer la respuesta como texto para revisar su contenido antes de parsearlo
     const data = await response.text();
-    // Intenta parsear el JSON solo si la respuesta no está vacía
     if (data) {
       airlines.value = JSON.parse(data);
     } else {
@@ -65,8 +65,6 @@ const fetchAirlines = async () => {
     console.error('Error al procesar las aerolíneas:', error);
   }
 };
-
-
 
 // Función para editar aerolínea
 const editAirline = (airline) => {
@@ -95,32 +93,99 @@ onMounted(() => {
 </script>
 
 <style scoped>
-h1 {
-  text-align: center;
+.airlines-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #f5f7fa, #e3e7ed);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Montserrat', sans-serif;
 }
 
-ul {
-  list-style-type: none;
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 40px;
+}
+
+.airlines-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
   padding: 0;
 }
 
-li {
+.airline-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
   text-align: center;
-  margin: 1rem 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.airline-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.airline-link {
+  display: block;
+  font-size: 1.25rem;
+  color: #3498db;
+  text-decoration: none;
+  margin-bottom: 15px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.airline-link:hover {
+  color: #2980b9;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 button {
-  margin-left: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button {
+  background-color: #f39c12;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #e67e22;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
 }
 
 .add-airline-button {
   display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
+  margin: 40px auto;
+  padding: 12px 30px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
+  font-size: 1.1rem;
   cursor: pointer;
 }
 

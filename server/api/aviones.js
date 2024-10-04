@@ -71,13 +71,14 @@ export default defineEventHandler(async (event) => {
       case 'POST':
         // Crear un nuevo avión
         const newAirplane = await readBody(event);
+        console.log('Datos recibidos para POST:', newAirplane);
 
-        if (!newAirplane.nombre || !newAirplane.pais_origen || !newAirplane.flota || !newAirplane.modelos_operados || !newAirplane.imagen) {
-          console.log('Faltan campos requeridos');
+        if (!newAirplane.modelo || !newAirplane.fabricante || !newAirplane.tipo || !newAirplane.capacidad || !newAirplane.velocidad_maxima || !newAirplane.año_lanzamiento || !newAirplane.aerolineas_usuarias || !newAirplane.imagen) {
+          console.log('Faltan campos requeridos:', newAirplane);
           res.statusCode = 400;
           return { error: 'Faltan campos requeridos' };
         }
-        const newFileName = `avion_${generateSlug(newAirplane.nombre)}.json`;
+        const newFileName = `avion_${generateSlug(newAirplane.modelo)}.json`;
         const newFilePath = path.join(dataPath, newFileName);
         console.log(`Creando archivo: ${newFilePath}`);
         await fs.promises.writeFile(newFilePath, JSON.stringify(newAirplane, null, 2));
@@ -92,10 +93,19 @@ export default defineEventHandler(async (event) => {
           res.statusCode = 400;
           return { error: 'Falta el slug para actualizar' };
         }
-        const updateFilePath = path.join(dataPath, `avion_${slug}.json`);
-        if (fs.existsSync(updateFilePath)) {
-          console.log(`Actualizando archivo: ${updateFilePath}`);
-          await fs.promises.writeFile(updateFilePath, JSON.stringify(updateData, null, 2));
+
+        const oldFilePath = path.join(dataPath, `avion_${slug}.json`);
+        const newSlug = generateSlug(updateData.modelo); // Generar nuevo slug basado en el nuevo modelo
+        const newFilePathForUpdate = path.join(dataPath, `avion_${newSlug}.json`);
+
+        if (fs.existsSync(oldFilePath)) {
+          // Renombrar el archivo si el slug cambia
+          if (slug !== newSlug) {
+            console.log(`Renombrando archivo de ${oldFilePath} a ${newFilePathForUpdate}`);
+            await fs.promises.rename(oldFilePath, newFilePathForUpdate);
+          }
+          // Actualizar el contenido del archivo con los nuevos datos
+          await fs.promises.writeFile(newFilePathForUpdate, JSON.stringify(updateData, null, 2));
           res.statusCode = 200;
           return updateData;
         } else {

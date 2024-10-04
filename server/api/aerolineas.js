@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
   
   // Usa getQuery para obtener los parámetros de consulta
   const { slug } = getQuery(event) || {};  
-  console.log("slug",slug);
+  
 
   try {
     switch (method) {
@@ -77,7 +77,6 @@ export default defineEventHandler(async (event) => {
           res.statusCode = 400;
           return { error: 'Faltan campos requeridos' };
         }
-        //const newFileName = `aerolinea_${Date.now()}.json`;
         const newFileName = `aerolinea_${generateSlug(newAirline.nombre)}.json`;
         const newFilePath = path.join(dataPath, newFileName);
         console.log(`Creando archivo: ${newFilePath}`);
@@ -88,15 +87,24 @@ export default defineEventHandler(async (event) => {
       case 'PUT':
         // Actualizar una aerolínea existente
         const updateData = await readBody(event);
-        console.log("slug",slug);
+        console.log("slug", slug);
         if (!slug) {
           res.statusCode = 400;
           return { error: 'Falta el slug para actualizar' };
         }
-        const updateFilePath = path.join(dataPath, `aerolinea_${slug}.json`);
-        if (fs.existsSync(updateFilePath)) {
-          console.log(`Actualizando archivo: ${updateFilePath}`);
-          await fs.promises.writeFile(updateFilePath, JSON.stringify(updateData, null, 2));
+
+        const oldFilePath = path.join(dataPath, `aerolinea_${slug}.json`);
+        const newSlug = generateSlug(updateData.nombre); // Generar nuevo slug basado en el nuevo nombre
+        const newFilePathForUpdate = path.join(dataPath, `aerolinea_${newSlug}.json`);
+
+        if (fs.existsSync(oldFilePath)) {
+          // Renombrar el archivo si el slug cambia
+          if (slug !== newSlug) {
+            console.log(`Renombrando archivo de ${oldFilePath} a ${newFilePathForUpdate}`);
+            await fs.promises.rename(oldFilePath, newFilePathForUpdate);
+          }
+          // Actualizar el contenido del archivo con los nuevos datos
+          await fs.promises.writeFile(newFilePathForUpdate, JSON.stringify(updateData, null, 2));
           res.statusCode = 200;
           return updateData;
         } else {
@@ -106,12 +114,12 @@ export default defineEventHandler(async (event) => {
 
       case 'DELETE':
         // Eliminar una aerolínea existente
-        console.log("slug",slug);
         if (!slug) {
           res.statusCode = 400;
           return { error: 'Falta el slug para eliminar' };
         }
         const deleteFilePath = path.join(dataPath, `aerolinea_${slug}.json`);
+        console.log(deleteFilePath);
         if (fs.existsSync(deleteFilePath)) {
           console.log(`Eliminando archivo: ${deleteFilePath}`);
           await fs.promises.unlink(deleteFilePath);
@@ -131,7 +139,5 @@ export default defineEventHandler(async (event) => {
     console.error('Error al manejar la solicitud:', error);
     res.statusCode = 500;
     return { error: 'Error interno del servidor' };
-  }
+  }  
 });
-
-
